@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+
+int fas(int n) {
+    int sum = 0;
+    while(n) {
+        int m = n%10;
+        sum = sum * 10 + m;
+        n = n/10;
+    }
+    return sum;
+}
+int main() {
+    int a,b,c;
+    while(cin >> a >> b) {
+        int m = fas(a);
+        int n = fas(b);
+        cout << m+n << endl;
+    }
+
+
+return 0;
+}
