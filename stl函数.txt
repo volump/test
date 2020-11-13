@@ -1,0 +1,294 @@
+
+@@@                             优先队列
+在一个果园里，多多已经将所有的果子打了下来，而且按果子的不同种类分成了不同的堆。多多决定把所有的果子合成一堆。 每一次合并，多多可以把两堆果子合并到一起，消耗的体力等于两堆果子的重量之和。可以看出，所有的果子经过n-1次合并之后，就只剩下一堆了。多多在合并果子时总共消耗的体力等于每次合并所耗体力之和。 因为还要花大力气把这些果子搬回家，所以多多在合并果子时要尽可能地节省体力。假定每个果子重量都为1，并且已知果子的种类数和每种果子的数目，你的任务是设计出合并的次序方案，使多多耗费的体力最少，并输出这个最小的体力耗费值。 例如有3种果子，数目依次为1，2，9。可以先将1、2堆合并，新堆数目为3，耗费体力为3。接着，将新堆与原先的第三堆合并，又得到新的堆，数目为12，耗费体力为12。所以多多总共耗费体力=3+12=15。可以证明15为最小的体力耗费值。
+输入输出格式
+输入描述:
+输入包括两行，第一行是一个整数n(1<＝n<=10000)，表示果子的种类数。第二行包含n个整数，用空格分隔，第i个整数ai(1<＝ai<=20000)是第i种果子的数目。
+输出描述:
+输出包括一行，这一行只包含一个整数，也就是最小的体力耗费值。输入数据保证这个值小于2^31。
+输入输出样例
+输入样例#:
+3 
+1 2 9
+输出样例#:
+15
+代码：1.0
+#include<iostream>
+#include<queue>
+#include<functional>
+using namespace std;
+
+int main(){
+    priority_queue<int, vector<int>,greater<int>>q;
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int v;
+        cin>>v;
+        q.push(v);
+    }
+    int sum=0;
+    int cnt=0;
+    while(!q.empty()){
+        cnt++;
+        if(cnt==n)break;
+        int a,b;
+        a=q.top();
+        q.pop();
+        b=q.top();
+        q.pop();
+        q.push(a+b);
+        sum+=a+b;
+    }
+    cout<<sum<<endl;
+    return 0;
+}
+2.0
+#include<iostream>
+#include<queue>
+using namespace std;
+
+struct cmp1{
+    bool operator()(int x,int y){
+        return x>y;
+    }
+};
+
+int main(){
+priority_queue<int,vector<int>,cmp1>q;
+int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int b;
+        cin>>b;
+        q.push(b);
+    }
+    int sum=0;
+    int cnt=0;
+    while(!q.empty()){
+        cnt++;
+        if(cnt==n){
+            break;
+        }
+        int a,b;
+        a=q.top();
+        q.pop();
+        b=q.top();
+        q.pop();
+        q.push(a+b);
+        sum+=a+b;
+    }
+    cout<<sum<<endl;
+    return 0;
+}
+
+
+
+1.0vector的输入和输出：
+#include<bits/stdc++.h>
+#include<vector>
+using namespace std;
+
+int main(){
+vector<int>v;
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int b;
+        cin>>b;
+        v.push_back(b);
+    }
+    vector<int>::iterator m;
+    for(m=v.begin();m!=v.end();m++){
+        cout<<*m<<endl;
+    }
+    return 0;
+}
+
+
+STL 中栈的使用方法(stack)
+
+#include <stack>
+
+基本操作：
+
+push(x) 将x加入栈中，即入栈操作
+
+pop() 出栈操作(删除栈顶)，只是出栈，没有返回值
+
+top() 返回第一个元素(栈顶元素)
+
+size() 返回栈中的元素个数
+
+empty() 当栈为空时，返回 true
+
+
+STL 中队列的使用(queue)
+#include <queue>
+
+基本操作：
+
+push(x) 将x压入队列的末端
+
+pop() 弹出队列的第一个元素(队顶元素)，注意此函数并不返回任何值
+
+front() 返回第一个元素(队顶元素)
+
+back() 返回最后被压入的元素(队尾元素)
+
+empty() 当队列为空时，返回true
+
+size() 返回队列的长度
+STL 中栈的使用方法(stack)
+
+#include <stack>
+
+基本操作：
+
+push(x) 将x加入栈中，即入栈操作
+
+pop() 出栈操作(删除栈顶)，只是出栈，没有返回值
+
+top() 返回第一个元素(栈顶元素)
+
+size() 返回栈中的元素个数
+
+empty() 当栈为空时，返回 true
+
+
+STL 中队列的使用(queue)
+#include <queue>
+
+基本操作：
+
+push(x) 将x压入队列的末端
+
+pop() 弹出队列的第一个元素(队顶元素)，注意此函数并不返回任何值
+
+front() 返回第一个元素(队顶元素)
+
+back() 返回最后被压入的元素(队尾元素)
+
+empty() 当队列为空时，返回true
+
+size() 返回队列的长度
+
+   （1）优先队列的第一种用法，这是最常用的默认的优先级用法，也就是优先级高的先出队列，例如说一个int优先队列，那么出队的时候就是int大的先出队列。
+#include<iostream>
+#include<queue>
+using namespace std;
+
+int main(){
+    priority_queue<int> q;
+    for(int i=1;i<=5;i++){
+        q.push(i);
+    }
+    for(int i=0;i<5;i++){
+        cout<<q.top()<<endl;
+        q.pop();
+    }
+    return 0;
+}
+（2）那么如果想要优先队列中低优先级的元素先出队列，怎么办呢？ --- 自定义优先级
+
+①方法一：我们可以传入一个比较函数，使用functional头文件中的greater函数对象作为比较函数
+
+注意：首先要添加头文件：#include <functional>
+
+priority_queue< int,vector<int>,greater<int> > q; // 注意：> > 误写成>> 会报错
+这样我们就创建了一个低优先级元素先出对列的优先队列。
+
+修改上面的例子，运行，就会发现，输出的顺序变成了：1 2 3 4 5。
+当然，与greater相对的less，如果传入less这个比较函数，那么就是高优先级元素先出队列了。
+priority_queue< int,vector<int>,less<int> > q; 
+
+priority_queue<int> q;
+
+以上创建的优先队列是相同的。
+
+
+#include<iostream>
+#include<queue>
+using namespace std;
+
+priority_queue<int,vector <int>,greater<int>>q;
+int main(){
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int b;
+        cin>>b;
+        q.push(b);
+    }
+    for(int i=0;i<n;i++){
+        cout<<q.top()<<" ";
+        q.pop();
+    }
+    cout<<endl;
+    return 0;
+}
+
+
+②方法二：自己实现比较函数
+
+struct cmp1{
+    bool operator ()(int x,int y){
+        return x>y;
+    }
+};
+priority_queue<int,vector<int>,cmp1 > q;
+这样就创建了一个小值元素先出队列的优先队列，这里的 cmp1 作用就相当于 greater 
+同理我们可以写出：
+struct cmp1{
+    bool operator ()(int x,int y){
+        return x<y;
+    }
+};
+priority_queue<int,vector<int>,cmp2 > q;
+这里就是创建了一个大值元素先出队列的优先队列，这里的 cmp2 作用也就是相当于 less
+
+
+（3）假如优先队列中的元素是一个结构对象或者是类对象，那么如何重新自定义其优先级比较呢？
+例子一：定义一个结构体，这个结构体只有一个元素 x 。
+①低优先级元素先出队列，也就是x值小的先出队列。
+struct number1{
+        int  x;
+        bool operator<(const numer1 &a)const{
+	  return x>a.x;
+        }
+};
+
+number1 num1[5];
+    priority_queue<number1>q;
+    for(int i=1;i<=5;i++){
+        num[i].x=i;
+        q.push(num[i]);
+    }
+    for(int i=0;i<5;i++){
+        cout<<q.top()<<endl;
+        q.pop;
+    }
+
+②高优先级元素先出队列，也就是x值大的先出队列
+
+struct number2{
+        int x;
+        bool operator <(const number2 &a)const{
+	return x<a.x;
+         }
+};
+注意到：结构体中重载的运算符只可以是 <, 因为标准库默认使用元素类型的 < 操作符来确定它们之间的优先级关系,如果重载 > ,那么会编译错误。 
+
+例子二：在上面的例子中，我们是将 结构体中的 x 的大小当做是优先级比较值了。下面给出另一例子，这个例子更具有一般性。
+
+
+
+在这个结构体中，priority表征优先级值。
+
+struct node {
+    friend bool operator<(node n1,node n2){
+        return n1.priority<n2.priority;
+    }
+    int priority;
+    int value;
+};
